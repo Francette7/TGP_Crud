@@ -1,0 +1,25 @@
+<h1>Bienvenu</h1>
+
+<p>Ici c'est notre super site de potins, il est chouette, non ?</p>
+
+<p><%= link_to "Créer un nouveau potin", new_gossip_path %></p>
+
+<h2>Listes des potins</h2>
+<% @gossip.each do |gossip| %>
+
+<div class="row">
+  <div class="col-sm-6">
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title"><%= gossip.title %></h5>
+    <h6 class="card-subtitle mb-2 text-muted"><%= gossip.created_at %> </h6>
+    <p class="card-text"><%= gossip.content %></p>
+    <%= link_to "Détail du potin", gossip_path(gossip.id) %>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+	<%= link_to "Editer", edit_gossip_path(gossip.id) %>
+	&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	<%= link_to "Supprimer", gossip_path(gossip.id) %>
+  </div>
+</div>
+<% end %>
+
