@@ -1,8 +1,12 @@
-<h1>Bienvenu</h1>
-
-<p>Ici c'est notre super site de potins, il est chouette, non ?</p>
-
-<p><%= link_to "Créer un nouveau potin", new_gossip_path %></p>
+<div class="jumbotron">
+  <h1 class="display-4">Bienvenus</h1>
+  <p class="lead">Ici c'est notre super site de potins, il est chouette, non ?</p>
+  <hr class="my-4">
+  <p class="btn btn-primary btn-lg" role="button"><%= link_to "Créer un nouveau potin", new_gossip_path, style: 'color: white' %></p>
+</div>
+<div class="alert alert-success" role="alert">
+  <%= flash[:success] %>
+</div>
 
 <h2>Listes des potins</h2>
 <% @gossip.each do |gossip| %>
@@ -10,15 +14,16 @@
 <div class="row">
   <div class="col-sm-6">
 <div class="card" style="width: 18rem;">
+
   <div class="card-body">
     <h5 class="card-title"><%= gossip.title %></h5>
-    <h6 class="card-subtitle mb-2 text-muted"><%= gossip.created_at %> </h6>
-    <p class="card-text"><%= gossip.content %></p>
-    <%= link_to "Détail du potin", gossip_path(gossip.id) %>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+  <%= link_to "Détail du potin", gossip_path(gossip.id) %>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 
-	<%= link_to "Editer", edit_gossip_path(gossip.id) %>
-	&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-	<%= link_to "Supprimer", gossip_path(gossip.id) %>
+	<%= link_to "Editer", edit_gossip_path(gossip.id) %>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	
+  <%= link_to "Voir l'auteur", user_path(gossip.id)%>
+  <%= link_to "Supprimer", gossip_path(gossip),
+  method: :delete, data: { confirm: 'Are you sure ?'}%>
   </div>
 </div>
 <% end %>

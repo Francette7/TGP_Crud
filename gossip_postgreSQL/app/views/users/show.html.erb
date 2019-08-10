@@ -1,0 +1,7 @@
+<% @user %>
+<h1> First Name : <%= @user.first_name %></h1>
+<h2> Last Name : <%= @user.last_name %></h2><br>
+<p> Description : <%= @user.description %></p>
+<p> Email : <%= @user.email %></p><br>
+<p> Age : <%= @user.age %></p><br>
+<p> Nom de la ville : <%= @user.city.name %> <%= link_to "Afficher la ville", city_path(@user.id)%></p>

@@ -5,6 +5,7 @@ class GossipsController < ApplicationController
 
   def show
   	@gossip = Gossip.find(params[:id])
+    
   end
 
   def new
@@ -12,8 +13,15 @@ class GossipsController < ApplicationController
   end
 
   def create
-  	@gossip = Gossip.create(gossip_params)
-  	redirect_to edit_gossip_path
+  	 @gossip = Gossip.create(title:params[:title], content:params[:content], user_id:(rand(1..10)))
+     @gossip.user = User.find_by(id: session[:user_id])
+    if @gossip.save
+      flash[:success] = " 😇 Félicitation! vous venez de créer un nouveau Potin! 👌"
+        redirect_to 'root_path'
+    else
+    flash[:failed] = "🤔 Attention!!! le titre/contenu n'est pas validé. 🤓 Veillez réessayer svp!"
+        render '/gossips/new'
+    end
   end
 
   def edit
@@ -24,11 +32,12 @@ class GossipsController < ApplicationController
   	@gossip = Gossip.find(params[:id])
   	
 	  if @gossip.update(gossip_params)
-
-	    redirect_to gossip_path
-	  else
-	    render :edit
-	  end
+      flash[:success] = " 😇 Félicitation! vous venez de mettre à jour votre Potin! 👌"
+        redirect_to '/'
+  else
+    flash[:failed] = "🤔 Attention!!! le titre/contenu n'est pas validé. 🤓 Veillez réessayer svp!"
+        render '/gossips/edit'
+    end
   end
 
   def destroy(id)
@@ -37,9 +46,4 @@ class GossipsController < ApplicationController
   	redirect_to gossips_path
   end
 
-  private
-
-  def gossip_params
-  	params.require(:gossip).permit(:title, :content, :user_id)
-  end
 end

@@ -5,6 +5,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -28,15 +29,28 @@
              <li class="nav-item">
                <a class="nav-link" href="/contact">Contact</a>
              </li>
+             <li class="nav-item">
+               <a class="nav-link" href="/users">Mon Profil</a>
+             </li>
            </ul>
-         <form class="form-inline my-2 my-lg-0">
-           <input class="form-control mr-sm-2" type="search" placeholder="Search">
-             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-         </form>
        </div>
+       <% if session[:user_id] == nil %>
+    <a href="/sessions/new" class="btn btn-outline-light my-2 my-sm-0" style="margin-right:10px;">Sign In</a>
+    <a href="/users/new" class="btn btn-outline-light my-2 my-sm-0">Sign Up</a>
+  <%else%>
+  <h2 class="btn btn-outline-success my-2 my-sm-0" style="margin-right:10px;"><%=current_user.first_name%> <%=current_user.last_name%>:bras_en_croix:?‍</h2>
+    <%= link_to "LogOUt", session_path(session.id), method: :delete,class:"btn btn-outline-danger my-2 my-sm-0" %>
+  <% end %>
      </nav>
    </header>
-   
+
+     <% if notice %>
+      <%= notice %>
+    <% end %>
+  
+    <% if alert %>
+      <%= alert %>
+    <% end %>
    <%= yield %>
  </body>
 </html>

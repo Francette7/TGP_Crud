@@ -16,9 +16,22 @@ end
 end
 
 20.times do
-	gossip = Gossip.create!(title: Faker::Movies::HarryPotter.book, content: Faker::Quotes::Shakespeare.romeo_and_juliet_quote, user_id: rand(1..20))
+	gossip = Gossip.create!(title: Faker::Games::Pokemon.name, content: Faker::Quotes::Shakespeare.romeo_and_juliet_quote, user_id: rand(1..20))
 end
 
 10.times do
   tag = Tag.create!(title: Faker::Game.title)
 end
+
+20.times do
+ com = Comment.create!(content: Faker::Quotes::Shakespeare.romeo_and_juliet_quote, user_id: rand(1..20), gossip_id: rand(1..20))
+ end
+
+ 20.times do
+ 
+ l = Like.create!(comment_id: rand(1..20), gossip_id: rand(1..20))
+
+ end
+ 
+puts "VITA O!!!"
+ 

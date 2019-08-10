@@ -1,3 +1,30 @@
 <h1><%=	@gossip.title %></h1>
-<h2><%=	@gossip.user.first_name %></h2><br>
-<p><%= @gossip.content %></p>
+
+<p><%= @gossip.content %></p><br>
+
+<h2>Comments</h2>
+<% @gossip.comments.each do |comment| %>
+	<p>
+		<strong>Comment :</strong>
+		<%= comment.content %>
+	</p>
+	<p>
+  		<%= link_to 'Destroy Comment', [comment.gossip, comment],
+               method: :delete,
+               data: { confirm: 'Are you sure?' } %>
+	</p>
+<% end %>
+
+<h2> Add a comment:</h2>
+<%= form_with(model: [ @gossip, @gossip.comments.build ], local: true) do |form| %>
+	<p>
+		<%= form.label :content %>
+		<%= form.text_field :content %>
+	</p>
+	<p>
+		<%= form.submit %>
+	</p>
+<% end %>
+
+<%= link_to 'Edit', edit_gossip_path(@gossip) %>
+<%= link_to 'Back', gossips_path %>

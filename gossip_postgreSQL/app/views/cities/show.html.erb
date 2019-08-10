@@ -1,0 +1,21 @@
+<h1> La liste de potin dans cette ville</h1>
+
+<table class="table"> 
+	<thead>
+		<tr>
+			<td>Title</td>
+			<td>Potin</td>
+			<td>Auteur</td>
+		</tr>
+	</thead>*
+	<tbody>
+		<% @city.users.each do |user| %>
+		<% user.gossip.each do |gossip| %>
+		<tr>
+			<td> gossip.title</td>
+			<td> gossip.content</td>
+			
+		</tr>
+		<% end %>
+	</tbody>
+</table>

@@ -1,6 +1,8 @@
 <html>
   <body>
-    
+    <div class="alert alert-danger" role="alert">
+  <%= flash[:failed] %>
+</div>
     <%= form_tag url_for(action: 'create'), method: "gossip" do %>
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
       <%= label_tag 'Title' %>
@@ -8,11 +10,7 @@
       <br /> <br />
 
       <%= label_tag 'Content' %>
-      <%= text_area_tag 'body', @content %>
-      <br /> <br />
-
-      <%= label_tag 'Author' %>
-      <%= text_field_tag 'author', @gossip.user %>
+      <%= text_area_tag 'content', @content %>
       <br /> <br />
 
       <%= submit_tag "Create Gossip" %>

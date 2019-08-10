@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
-
-  get 'gossips/show'
-  get 'gossips/index'
-
   	root 'pages#index'
   	
-    resources :gossips
-
-
+    resources :gossips do
+    	resources :comments
+    end
+    resources :users, only: [:new, :create, :show]
+    resources :cities
+    resources :sessions, only: [:new, :create, :destroy]
 end
  
