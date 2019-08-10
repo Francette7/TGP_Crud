@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   	root 'pages#index'
-  	
+  	get '/welcome/:first_name' , to: 'pages#index_logged', as: 'index_logged'
     resources :gossips do
     	resources :comments
     end

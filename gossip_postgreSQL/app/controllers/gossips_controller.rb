@@ -14,7 +14,7 @@ class GossipsController < ApplicationController
 
   def create
   	 @gossip = Gossip.create(title:params[:title], content:params[:content], user_id:(rand(1..10)))
-     @gossip.user = User.find_by(id: session[:user_id])
+     @gossip.user = current_user
     if @gossip.save
       flash[:success] = " 😇 Félicitation! vous venez de créer un nouveau Potin! 👌"
         redirect_to 'root_path'
@@ -26,11 +26,12 @@ class GossipsController < ApplicationController
 
   def edit
   	@gossip = Gossip.find(params[:id])
+    @gossip.user = current_user
   end
 
   def update
   	@gossip = Gossip.find(params[:id])
-  	
+  	@gossip.user = current_user
 	  if @gossip.update(gossip_params)
       flash[:success] = " 😇 Félicitation! vous venez de mettre à jour votre Potin! 👌"
         redirect_to '/'
@@ -42,7 +43,7 @@ class GossipsController < ApplicationController
 
   def destroy(id)
   	@gossip = Gossip.find(params[:id])
-  	@gossip.destroy
+  	@gossip.user.destroy = current_user
   	redirect_to gossips_path
   end
 

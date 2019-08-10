@@ -10,6 +10,7 @@ class CommentsController < ApplicationController
   def create
   	@gossip = Gossip.find(params[:gossip_id])
   	@comment = @gossip.comments.create(comment_params)
+    @comment.user = current_user
     redirect_to gossip_path(@gossip)
   end
 

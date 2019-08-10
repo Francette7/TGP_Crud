@@ -1,26 +1,23 @@
 class SessionsController < ApplicationController
-	def new
-	end
 
-	def create
-  user = User.find_by(email: params[:email])
 
-  if user && user.authenticate(params[:password])
-    session[:user_id] = user.id
-    flash[:success] = "Successfully Logged In!"
-    redirect_to '/'
-    # redirige où tu veux, avec un flash ou pas
+  #Création du cookie / Log-in
+  def create
+    session_params = params.require(:session).permit(:email, :password)
+    user = User.find_by(email: session_params[:email])
 
-  else
-    flash.now[:danger] = 'Invalid email/password combination'
-    render 'new'
+    if user && user.authenticate(session_params[:password])
+      log_in(user)
+      redirect_to root_path, success: 'Identification réussie'
+    else
+      redirect_to root_path, danger: 'Combinaison email/password invalide'
+    end
   end
 
+    #Destruction du cookie / Log-out
   def destroy
-  	session[:user_id] = nil
-  	flash[:success] = "Successfully Logged Out!"
-  	redirect_to '/login'
-
+    session.delete(:user_id)
+    redirect_to root_path, success: 'Déconnexion réussie'
   end
-end
+
 end
